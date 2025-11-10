@@ -1,3 +1,4 @@
+# This workflow is responsible for running SonarQube analysis
 name: SonarQube
 on:
   push:

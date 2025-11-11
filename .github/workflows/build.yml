@@ -29,7 +29,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
-          # FIX: Updated hashFiles to include gradle-wrapper.properties for a more reliable key
+          # FIX: The key expression must be on a single line to be parsed correctly.
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties', '**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Build and analyze

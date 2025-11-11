@@ -29,12 +29,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          # FIX: Updated hashFiles to include gradle-wrapper.properties for a more reliable key
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties', '**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # SonarQube authentication token loaded from secrets
         run: |
+          # The analysis command now excludes C/C++/Objective-C files, as requested
           ./gradlew build sonar \
             -Dsonar.c.file.suffixes=- \
             -Dsonar.cpp.file.suffixes=- \

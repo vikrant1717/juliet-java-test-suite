@@ -29,7 +29,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
-          # Ensure this key line is perfectly clean and uses only standard spaces for indentation.
+          # Ensure this line is perfectly clean (only spaces for indentation)
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties', '**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Build and analyze

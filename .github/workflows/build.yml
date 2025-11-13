@@ -29,8 +29,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
-          # Ensure this line is perfectly clean (only spaces for indentation)
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties', '**/*.gradle') }}
+          # FIX: Simplified hashFiles pattern for stability.
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties', '**/*.gradle', '**/build.gradle', '**/settings.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Build and analyze
         env:

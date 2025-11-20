@@ -36,7 +36,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties', '**/settings.gradle', '**/build.gradle', '**/*.gradle') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties','**/settings.gradle','**/build.gradle','**/*.gradle') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -47,7 +47,14 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./gradlew build sonar \
+          # Compile code first
+          ./gradlew build
+
+          # Run SonarQube analysis
+          ./gradlew sonar \
+            -Dsonar.sources=src \
+            -Dsonar.tests=testcases \
+            -Dsonar.java.binaries=build/classes/java/main \
             -Dsonar.c.file.suffixes=- \
             -Dsonar.cpp.file.suffixes=- \
             -Dsonar.objc.file.suffixes=- \
